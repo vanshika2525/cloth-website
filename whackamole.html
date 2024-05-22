@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whack-a-Mole</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .hole {
+      width: 80px;
+      height: 80px;
+      border: 2px solid #000;
+      border-radius: 50%;
+      background-color: #8B4513;
+      display: inline-block;
+      margin: 10px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .mole {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #000;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+    }
+
+    #score {
+      margin-top: 20px;
+      font-size: 24px;
+    }
+
+    #timer {
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Whack-a-Mole</h1>
+    <div id="game">
+      <div class="hole" onclick="whack(event)"><div class="mole"></div></div>
+      <div class="hole" onclick="whack(event)"><div class="mole"></div></div>
+      <div class="hole" onclick="whack(event)"><div class="mole"></div></div>
+      <div class="hole" onclick="whack(event)"><div class="mole"></div></div>
+      <div class="hole" onclick="whack(event)"><div class="mole"></div></div>
+      <div class="hole" onclick="whack(event)"><div class="mole"></div></div>
+    </div>
+    <div id="score">Score: <span id="scoreValue">0</span></div>
+    <div id="timer">Time: <span id="timerValue">30</span></div>
+  </div>
+
+  <script>
+    let score = 0;
+    let timer = 30;
+    let moleTimeout;
+
+    function startGame() {
+      score = 0;
+      timer = 30;
+      document.getElementById('scoreValue').textContent = score;
+      document.getElementById('timerValue').textContent = timer;
+
+      moleTimeout = setInterval(popMole, 1000);
+      setTimeout(endGame, timer * 1000);
+    }
+
+    function endGame() {
+      clearInterval(moleTimeout);
+      alert('Game over! Your score: ' + score);
+    }
+
+    function popMole() {
+      const holes = document.querySelectorAll('.hole');
+      const randomHole = holes[Math.floor(Math.random() * holes.length)];
+      const mole = randomHole.querySelector('.mole');
+
+      mole.style.display = 'block';
+
+      setTimeout(() => {
+        mole.style.display = 'none';
+      }, 700);
+    }
+
+    function whack(event) {
+      const mole = event.currentTarget.querySelector('.mole');
+      if (mole.style.display === 'block') {
+        score++;
+        document.getElementById('scoreValue').textContent = score;
+        mole.style.display = 'none';
+      }
+    }
+
+    window.onload = startGame;
+  </script>
+</body>
+</html>

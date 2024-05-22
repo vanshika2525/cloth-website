@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Player</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .music-player {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 300px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-top: 20px;
+      border: none;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="music-player">
+    <h1>Music Player</h1>
+    <audio controls>
+      <source src="your-music-file.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <button>Play/Pause</button>
+  </div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guess the Number</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    #container {
+      margin-top: 50px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    #guessInput {
+      width: 50px;
+      margin-right: 10px;
+    }
+
+    #guessSubmit {
+      padding: 5px 20px;
+      background-color: #007bff;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .low {
+      color: red;
+    }
+
+    .high {
+      color: green;
+    }
+
+    .won {
+      color: #007bff;
+    }
+
+    #attempts {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Guess the Number Game</h1>
+  <div id="container">
+    <p>Guess a number between 1 and 100:</p>
+    <input type="number" id="guessInput" min="1" max="100">
+    <button id="guessSubmit">Submit Guess</button>
+    <p id="message"></p>
+    <p id="attempts">Attempts: <span id="attemptCount">0</span></p>
+  </div>
+
+  <script>
+    
+    const randomNumber = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
+
+    
+    const guessInput = document.getElementById('guessInput');
+    const guessSubmit = document.getElementById('guessSubmit');
+    const message = document.getElementById('message');
+    const attemptCount = document.getElementById('attemptCount');
+
+  
+    guessSubmit.addEventListener('click', function() {
+      const guess = parseInt(guessInput.value);
+
+    
+      if (isNaN(guess) || guess < 1 || guess > 100) {
+        setMessage('Please enter a valid number between 1 and 100.', 'red');
+        return;
+      }
+
+      attempts++;
+      attemptCount.textContent = attempts;
+
+      
+      if (guess === randomNumber) {
+        gameOver(true);
+      } else {
+      
+        setMessage(guess < randomNumber ? 'Too low! Try again.' : 'Too high! Try again.', 'black');
+      }
+    });
+
+  
+    function setMessage(msg, color) {
+      message.textContent = msg;
+      message.style.color = color;
+    }
+
+    
+    function gameOver(won) {
+      const color = won ? 'green' : 'red';
+      setMessage(`Congratulations! You guessed the correct number in ${attempts} attempts.`, color);
+      guessInput.disabled = true;
+      guessSubmit.disabled = true;
+    }
+  </script>
+</body>
+</html>
